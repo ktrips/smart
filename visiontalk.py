@@ -13,11 +13,15 @@ from datetime import datetime
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
+from PIL import Image, ImageDraw
+
 import aiy.audio
 import aiy.voicehat
 
 #aiy.i18n.set_language_code('ja-JP')
 default_speech = 'ja-JP'
+default_detect = ["FACE", "LABEL", "LOGO"]
+default_max    = 3
 
 dir_image = '/home/pi/AIY-projects-python/src/robot/image/'
 
@@ -39,6 +43,17 @@ def camera():
     camera.capture(fname)
     return fname
 
+def draw_boxes(image, bounds, color):
+    """Draw a border around the image using the hints in the vector list."""
+    draw = ImageDraw.Draw(image)
+    for bound in bounds:
+        draw.polygon([
+            bound.vertices[0].x, bound.vertices[0].y,
+            bound.vertices[1].x, bound.vertices[1].y,
+            bound.vertices[2].x, bound.vertices[2].y,
+            bound.vertices[3].x, bound.vertices[3].y], None, color)
+    return image
+
 def main(detection, photo_file):
     if photo_file == "":
         photo_file = camera()
@@ -48,13 +63,15 @@ def main(detection, photo_file):
 
     with open(photo_file, 'rb') as image:
         image_content = base64.b64encode(image.read())
-        if detection == "":
-          DETECT = ["FACE", "LABEL", "LOGO", "WORD"]
-        else:
+        if detection == "": #No parameter
+          DETECT = default_detect
+        else: #Paremater specified
           DETECT = [detection.upper()]
 
-        result   =""
-        result_ja=""
+        result   = ""
+        result_ja= ""
+        bounding = []
+        tlocale  = ""
         for DET in DETECT:
           service_request = service.images().annotate(body={
             'requests': [{
@@ -63,7 +80,7 @@ def main(detection, photo_file):
                     },
                 'features': [{
                     'type': DET+'_DETECTION',
-                    'maxResults': 3
+                    'maxResults': default_max
                     }]
                 }]
             })
@@ -76,8 +93,10 @@ def main(detection, photo_file):
                 if res["score"] > 0.7:
                   result += res["description"]+","
                 
-              elif DET in ["WORD"]:
-                if 
+              elif DET in ["TEXT"]:
+                tlocale  =res["locale"]
+                result  +=res["description"]+","
+                bounding+=res["boundingPoly"]["vertices"]
 
               elif DET in ["FACE"]:
                 if res["joyLikelihood"] == "VERY_LIKELY":
