@@ -6,8 +6,6 @@ import httplib2
 import picamera
 import os
 import re
-
-from pprint import pprint
 from datetime import datetime
 
 from googleapiclient import discovery
@@ -36,7 +34,7 @@ def camera():
     try:
       os.mkdir(dir_path)
     except OSError:
-      pprint('Date dir already exists')
+      print('Date dir already exists')
     #os.system('raspistill -o ' + fname)
     camera = picamera.PiCamera()
     camera.resolution = (640, 480)
@@ -70,7 +68,7 @@ def main(detection, photo_file):
 
         result   = ""
         result_ja= ""
-        bounding = []
+        bounds   = []
         tlocale  = ""
         for DET in DETECT:
           service_request = service.images().annotate(body={
@@ -94,9 +92,9 @@ def main(detection, photo_file):
                   result += res["description"]+","
                 
               elif DET in ["TEXT"]:
-                tlocale  =res["locale"]
-                result  +=res["description"]+","
-                bounding+=res["boundingPoly"]["vertices"]
+                tlocale = res["locale"]
+                result += res["description"]+","
+                bounds += res["boundingPoly"]["vertices"]
 
               elif DET in ["FACE"]:
                 if res["joyLikelihood"] == "VERY_LIKELY":
@@ -115,7 +113,6 @@ def main(detection, photo_file):
             result += "No "+DET
             result_ja += "いませんでした！"
 
-        #pprint(response)
         return result
 
 if __name__ == '__main__':
