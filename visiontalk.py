@@ -17,11 +17,12 @@ import aiy.audio
 import aiy.voicehat
 
 #aiy.i18n.set_language_code('ja-JP')
+aiy_lang = []
 default_speech = 'ja-JP'
 default_detect = ["FACE", "LABEL", "LOGO"]
 default_max    = 3
 
-dir_image = '/home/pi/AIY-projects-python/src/robot/image/'
+dir_image = '/home/pi/AIY-projects-python/src/smart/image/'
 
 DISCOVERY_URL="https://{api}.googleapis.com/$discovery/rest?version={apiVersion}"
 
@@ -116,11 +117,17 @@ def main(detection, photo_file):
         return result
 
 if __name__ == '__main__':
-     parser = argparse.ArgumentParser()
-     parser.add_argument('detection', nargs='?', default='', help='LABEL, FACE, LOGO_DETECTION')
-     parser.add_argument('image', nargs='?', default='', help='Image file name')
-     parser.add_argument('speech', nargs='?', default='ja-JP', help='')
-     args = parser.parse_args()
-     result = main(args.detection, args.image)
-     print(result)
-     aiy.audio.say(result, args.speech)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--detect', nargs='?', default='', help='LABEL, FACE, LOGO_DETECTION')
+    parser.add_argument('--image', nargs='?', default='', help='Image file name')
+    parser.add_argument('--speech', nargs='?', default='ja-JP', help='')
+    args = parser.parse_args()
+    result = main(args.detect, args.image)
+    print(result)
+    if speech in aiy_lang:
+        aiy.audio.say(result, args.speech)
+    elif speech == 'ja-JP':
+        AquesTalk
+    else:
+       aiy.audio.say('Nothing to talk!', 'en-US')
+
