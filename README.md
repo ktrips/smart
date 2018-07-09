@@ -12,18 +12,25 @@ Making smart devices with Raspberry Pi and Google APIs
 3. Place each files to the smart folder
 
 4. Download software
+
 - Downlaod and install Seeed software
+
  $ git clone
  
 - Download AquesTalk software
+
  $ wget https://www.a-quest.com/archive/package/aquestalkpi-20130827.tgz
  $ tar xzvf aquestalkpi-*.tgz
  
 
 5. Setup Google SDK
+
 - Setup Google Vision
+
 $ sudo nano ~/.bashrc
 $ GOOGLE_APPLICATION_CREDENTIALS="/home/pi/visionxxx.json"
 $ echo $GOOGLE_APPLICATION_CREDENTIALS
 
 - Setup Google Translate
+
+$ pip install --upgrade google-cloud-translate
