@@ -33,15 +33,14 @@ tar xzvf aquestalkpi-*.tgz
 ```
 sudo nano ~/.bashrc
 ```
-```
-GOOGLE_APPLICATION_CREDENTIALS="/home/pi/visionxxx.json
-```
+Add `GOOGLE_APPLICATION_CREDENTIALS="/home/pi/visionxxx.json`
 ```
 echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
 
 - Setup Google Translate
 ```
+pip install --upgrade oauth2client
 pip install --upgrade google-cloud-translate
 ```
 
