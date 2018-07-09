@@ -1,5 +1,7 @@
 # Raspberry Pi Smart devices with Google APIs
 
+Each programs are described in the articles in [DevicePlus](http://deviceplus.jp)
+
 ## How to setup the smart app and hardware
 
 1. Install Google AIY to your Raspberry Pi
@@ -14,20 +16,20 @@ sudo cp ~/AIY-projects-python/src/examples/voice/* ~/AIY-projects-python/src/sma
 
 4. Setup required software
 
-### Downlaod and install Seeed software
+- Downlaod and install Seeed software
 
 ```
 git clone
 ```
 
-### Download [AquesTalk](https://www.a-quest.com/products/aquestalkpi.html)
+- Download [AquesTalk](https://www.a-quest.com/products/aquestalkpi.html)
 ```
 wget https://www.a-quest.com/archive/package/aquestalkpi-20130827.tgz
 tar xzvf aquestalkpi-*.tgz
 ```
 
 5. Setup Google SDK
-### Setup Google Vision
+- Setup Google Vision
 ```
 sudo nano ~/.bashrc
 ```
@@ -38,7 +40,9 @@ GOOGLE_APPLICATION_CREDENTIALS="/home/pi/visionxxx.json
 echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
 
-### Setup Google Translate
+- Setup Google Translate
 ```
 pip install --upgrade google-cloud-translate
 ```
+
+## How to use the apps
