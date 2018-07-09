@@ -79,7 +79,6 @@ def main(detect="", photo_file="", trans_lang=""):
     service = discovery.build('vision', 'v1', credentials=credentials,
             discoveryServiceUrl=DISCOVERY_URL)
 
-    pixels.listen()
     with open(photo_file, 'rb') as image:
         image_content = base64.b64encode(image.read())
         if detect == "": #No parameter
@@ -91,6 +90,7 @@ def main(detect="", photo_file="", trans_lang=""):
         bounds   = []
         tlocale  = ""
         for DET in DETECT:
+          pixels.listen()
           service_request = service.images().annotate(body={
             'requests': [{
                 'image': {
@@ -128,10 +128,10 @@ def main(detect="", photo_file="", trans_lang=""):
           except:
             result += "No " + DET + ", "
           pixels.off()
-          print('Result: ' + result)
-            
-          pixels.listen()    
-          if trans_lang:
+        
+        print('Result: ' + result)    
+        pixels.listen()    
+        if trans_lang:
             trans_text = translate_text(result, trans_lang)
             trans_text = trans_text.replace("&#39;","")
             print('Trans: ' + trans_text)
@@ -142,10 +142,9 @@ def main(detect="", photo_file="", trans_lang=""):
             else:
               aiy.audio.say('Nothing to trans!', 'en-US')
             
-          else: #trans_lang = null then default en-US
-            aiy.audio.say(result, 'en-US')
-            
-          pixels.off()
+        else: #trans_lang = null then default en-US
+            aiy.audio.say(result, 'en-US')    
+        pixels.off()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
