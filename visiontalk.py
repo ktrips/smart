@@ -70,7 +70,7 @@ def draw_boxes(image, bounds, color):
     return image
 
 def main(detect="", photo_file="", trans_lang=""):
-    pixels.wake()
+    pixels.wakeup()
     if photo_file == "":
         photo_file = camera()
     pixels.off()
