@@ -6,7 +6,7 @@ import subprocess
 
 BUTTON = 17
 LED    = 16
-hold_time=1.5
+hold_time=1.2
 
 fname = (time.strftime("%Y%m%d-%H%M%S"))
 fdir  = '/home/pi/web/image/'
@@ -15,9 +15,13 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(LED, GPIO.OUT)
 
-actions = ['arecord -t wav -f dat -d 5 rec.wav', #ボタン長押しで録音
-           'sudo raspistill -o '+fdir+fname+'.jpg', #ワンプッシュで写真撮影
-           'aplay rec.wav'] #ダブルプッシュで再生
+#actions = ['arecord -t wav -f dat -d 5 rec.wav', #ボタン長押しで録音
+           #'sudo raspistill -o '+fdir+fname+'.jpg', #ワンプッシュで写真撮影
+           #'aplay rec.wav'] #ダブルプッシュで再生
+           
+actions = ['python3 visiontrans.py --trans ja-JP', #ボタン長押しで顔、ラベル、ロゴ全部読み取り、日本語発話
+           'python3 visiontrans.py --detect text --trans ja-JP', #ワンプッシュで文字読み取り、日本語翻訳発話
+           'python3 visiontrans.py --detect face'] #ダブルプッシュで顔読み取り
 
 for i in range(3):
       GPIO.output(LED, GPIO.HIGH)
