@@ -4,8 +4,8 @@ import time
 import RPi.GPIO as GPIO
 
 BUTTON = 17
-#LED    = 16
-hold_time=1.5
+LED    = 16
+hold_time=1.2
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
