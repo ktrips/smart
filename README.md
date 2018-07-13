@@ -19,7 +19,17 @@ sudo cp ~/AIY-projects-python/src/examples/voice/* ~/AIY-projects-python/src/sma
 - Downlaod and install Seeed software
 
 ```
-git clone
+git clone https://github.com/respeaker/seeed-voicecard.git
+cd seeed-voicecard
+sudo ./install.sh
+reboot
+```
+```
+sudo pip install spidev
+cd ~/
+git clone https://github.com/respeaker/mic_hat.git
+cd mic_hat
+python pixels.py
 ```
 
 - Download [AquesTalk](https://www.a-quest.com/products/aquestalkpi.html)
