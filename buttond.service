@@ -1,0 +1,10 @@
+[Unit]
+Description = Action Button
+
+[Service]
+ExecStart=/home/pi/AIY-projects-python/src/smart/button_action.py
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
