@@ -26,9 +26,9 @@ for i in range(3):
 actions = ['python3 visiontrans.py --trans ja-JP', #ボタン長押しで顔、ラベル、ロゴ全部読み取り、日本語発話
            'python3 visiontrans.py --detect text --trans ja-JP', #ワンプッシュで文字読み取り、日本語翻訳発話
            'python3 visiontrans.py --detect face'] #ダブルプッシュで顔読み取り
-pixcels.listen()
+pixels.listen()
 time.sleep(hold_time)
-pixcels.off()
+pixels.off()
 
 GPIO.add_event_detect(BUTTON,GPIO.FALLING)
 while True:
@@ -53,7 +53,7 @@ while True:
       for i in range(count):
         time.sleep(0.5)
         #GPIO.output(LED, GPIO.HIGH)
-        pixels.listemn()
+        pixels.listen()
         time.sleep(0.5)
         #GPIO.output(LED, GPIO.LOW)
         pixels.off()
