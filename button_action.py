@@ -10,7 +10,7 @@ hold_time=1.2
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-actions = ['raspistill –o image.jpg', #ボタン長押しで、写真撮影
+actions = ['raspistill -o image.jpg', #ボタン長押しで、写真撮影
            'arecord -t wav -f dat -d 5 rec.wav', #ワンプッシュで音声5秒聞き取り
            'aplay rec.wav'] #ダブルプッシュで聞き取り音声の出力
 
