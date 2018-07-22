@@ -49,7 +49,7 @@ def camera():
     camera.capture(fname)
     return fname
 
-def main(detect="", photo_file=""):
+def main(detect="", photo_file="", trans_lang=""):
     if photo_file == "":
         photo_file = camera()
     credentials = GoogleCredentials.get_application_default()
