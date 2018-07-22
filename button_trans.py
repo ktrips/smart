@@ -12,10 +12,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(BUTTON,GPIO.FALLING)
 
-def main(speech=”en-US”, trans="ja-JP"):
-  actions = ['python3 visiontrans.py --detect text --trans {}'.format(trans), #ボタン長押しで、写真撮影、外国語読み取り、変換
-           'python3 cloudspeech_trans.py –speech {} --trans {}'.format(speech, trans), #ワンプッシュで外国語聞き取り、変換
-           'python3 cloudspeech_trans.py –speech {} --trans {}'.format(trans, speech)] #ダブルプッシュで発話日本語などを外国語変換
+def main(speech="en-US", trans="ja-JP"):
+  actions = ['python3 vision_trans.py --detect text --trans {}'.format(trans), #ボタン長押しで、写真撮影、外国語読み取り、変換
+           'python3 cloudspeech_trans.py --speech {} --trans {}'.format(speech, trans), #ワンプッシュで外国語聞き取り、変換
+           'python3 cloudspeech_trans.py --speech {} --trans {}'.format(trans, speech)] #ダブルプッシュで発話日本語などを外国語変換
   while True:
     if GPIO.event_detected(BUTTON):
       GPIO.remove_event_detect(BUTTON)
