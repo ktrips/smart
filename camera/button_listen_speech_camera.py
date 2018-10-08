@@ -60,7 +60,8 @@ models = {1: {"name": "カテゴリ認識",
             "url": "https://api.apigw.smt.docomo.ne.jp/characterRecognition/v1/scene",
             "model":{'word': u"['文字','言葉','読取','テキスト']"}
             }
-         }
+        }
+
 docomo_key= '307745313362694e4e6f41786a766668674a45536461713445566b4e6e2e4769367959723846394f395143'
 #'555248645546724838684e716c65775845386859535257646e52716b3650362e384f744c455a4b57544f44'
 URL_SPEECH= 'https://api.apigw.smt.docomo.ne.jp/voiceText/v1/textToSpeech?APIKEY='
@@ -123,6 +124,8 @@ def camera():
 
 def getImage(fname, modelName, lang, url):
     register_openers()
+    f = open(fname, 'r')
+
     if modelName in models[1]['model'].keys() + models[2]['model'].keys():
         datagen, headers = multipart_encode({'image': f, 'modelName': modelName})
     else:
