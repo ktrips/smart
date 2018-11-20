@@ -4,9 +4,7 @@ Each programs are described in the articles in [DevicePlus](http://deviceplus.jp
 
 ## Hardware requirements
 
-![Raspberry Pi Zero W](https://images-na.ssl-images-amazon.com/images/I/51TQvkcHJOL.jpg) 
-![Seed Respeaker 2-Mic](https://images-na.ssl-images-amazon.com/images/I/61LUX8fc0xL._SL1024_.jpg)
-![RasPi Camera](https://images-na.ssl-images-amazon.com/images/I/41gHGo7BeuL.jpg) 
+![Raspberry Pi Zero W](https://images-na.ssl-images-amazon.com/images/I/51TQvkcHJOL.jpg) + ![Google AIY](https://aiyprojects.withgoogle.com/static/images/icons/aiy-circular-logo.svg)
 
 ## How to setup the smart app and hardware
 
@@ -61,3 +59,5 @@ pip install --upgrade google-cloud-translate
 ```
 
 ## How to use the apps
+![Seed Respeaker 2-Mic](https://images-na.ssl-images-amazon.com/images/I/61LUX8fc0xL._SL1024_.jpg)
+![RasPi Camera](https://images-na.ssl-images-amazon.com/images/I/41gHGo7BeuL.jpg) 
