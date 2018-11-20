@@ -4,7 +4,7 @@ Each programs are described in the articles in [DevicePlus](http://deviceplus.jp
 
 ## Hardware requirements
 
-![Raspberry Pi Zero W](https://images-na.ssl-images-amazon.com/images/I/51TQvkcHJOL.jpg) + ![Google AIY](https://aiyprojects.withgoogle.com/static/images/icons/aiy-circular-logo.svg)
+![Raspberry Pi Zero W](https://images-na.ssl-images-amazon.com/images/I/51TQvkcHJOL.jpg) + ![Google AIY](https://aiyprojects.withgoogle.com/)
 
 ## How to setup the smart app and hardware
 
