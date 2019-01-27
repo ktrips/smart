@@ -188,3 +188,64 @@ if __name__ == '__main__':
     while True:
         print("Press 1 " + models[1]['name'] + ", 2 " + models[2]['name'] + ", 3 " + models[3]['name'] + " times!")
         if GPIO.event_detected(BUTTON):
+            message   = ""
+            fname     = ""
+            model_name= ""
+            count     = 0
+
+            GPIO.remove_event_detect(BUTTON)
+            now = time.time()
+            GPIO.add_event_detect(BUTTON,GPIO.RISING)
+            while time.time() < now + hold_time:
+                if GPIO.event_detected(BUTTON):
+                    count +=1
+                    time.sleep(.3) # debounce time
+
+            print(count)
+            """if count == 0:
+
+                blinkt_pulse(255, 255, 0)
+                talk('何を撮りますか？')
+                rec = recognize(rec_time)
+                #print rec
+                talk(rec.encode('utf-8') + '、と言ったのですか？')
+                blinkt.clear()
+
+                for i in range(1,4):
+                    for k,v in models[i]['model'].items():
+                        print(k, v)
+                        if re.match(v, rec):
+                            model_name = k
+                            count= i
+                            break"""
+
+            if count > -1:
+                if count == 0:
+                    for i in range(3):
+                        blinkt_pulse(0, 255, 0)
+                        time.sleep(1)
+                elif count in [1,2]:
+                    count = 1
+                else:
+                    count = 2
+                #count = 1
+                model = models[count]['model']
+                model_desc = models[count]['name']
+                #url = models[count]['url']
+                print(model, model_desc)
+
+                blinkt_pulse(0, 255, 0)
+                startmsg = 'では、写真を撮って、' + model_desc + 'します！'
+                talk(startmsg)
+                print(startmsg)
+                if image != "":
+                    fname = image
+                else:
+                    talk("パシャ！")
+                    fname = camera()
+
+                img = cv2.imread(fname)
+                oname = fname.replace('.jpg', '_o.jpg')
+
+                candidate_list = []
+                obj    = 0
