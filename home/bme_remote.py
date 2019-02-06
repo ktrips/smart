@@ -204,6 +204,7 @@ def main():
         if room:
             print room
             os.system(aquest_dir + "AquesTalkPi " + room + " | aplay")
+            command = [“”,””] if command == “” else command
             print command
             args = ['irsend', '-#', '1', 'SEND_ONCE', command[0], command[1]]
             subprocess.Popen(args)
