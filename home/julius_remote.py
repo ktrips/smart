@@ -1,9 +1,10 @@
--*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 import socket
 from io import StringIO
-import re, os
+import re
 import subprocess
 
+import os
 import time
 import RPi.GPIO as GPIO
 import datetime
@@ -15,6 +16,7 @@ GPIO.setwarnings(False)
 aquest_dir   = "/home/pi/smart/aquestalkpi/AquesTalkPi "
 bme_command  = "/home/pi/smart/bme.py"
 camera_command="/home/pi/smart/camera_line.py"
+ifttt_command= ""
 
 def led_blink(color, count):
         if color == "red":
@@ -36,6 +38,7 @@ pattern = r'WHYPO WORD=\"(.*)\" CLASSID'
 
 os.system(aquest_dir + ' "御用は何でしょうか？" | aplay')
 
+#def main():
 p = subprocess.Popen(["bash julius_greeting.sh"], stdout=subprocess.PIPE, shell=True)
 pid = p.stdout.read() # juliusのプロセスIDを取得
 print('Julius runs with '+str(pid))
@@ -60,20 +63,25 @@ try:
                         datetimestr = '%s年%s月%s日' % (d.year, d.month, d.day)
                         datetimestr+= '%s時%s分' % (d.hour, d.minute)
                         word = m.group(1)
+                        command= ["tv", "tvon"]
 
                         if u'おはよう' in word:
                             msg = 'おはようございます！今は' + datetimestr + 'です！'
-                            command = [‘light’, 'lon']
+                            #device = "light"
+                            command= ["tv", "tvon"]
                         elif u'いってきます' in word:
                             msg = 'いってらっしゃい！今日はきっといい事ありますよ！'
+                            command= ["light", "loff"]
                         elif u'ただいま' in word:
                             msg = 'おかえりなさい！おつかれさまでした！'
+                            command = ["tv", "tvon"]
                         elif u'おやすみ' in word:
                             msg = 'おやすみなさい！良い夢を！'
-                        if u'テレビオン' in word:
-                            command = [‘tv’, 'tvon']
-                        elif u’加湿器オン’ in word:
-                            command = [‘humid’, ‘hon’]
+                            command= ["light", "loff"]
+                        elif u'テレビオン' in word:
+                            command = ["tv", "tvon"]
+                        elif u'加湿器オン' in word:
+                            command = ["humid", "hon"]
                         elif u'さよなら' in word or u'バイバイ' in word:
                             msg = 'また話しかけてね！'
                             print(msg)
@@ -94,8 +102,10 @@ try:
                                 os.system(aquest_dir + msg + ' | aplay')
                                 os.system('python ' + bme_command)
                                 os.system('python ' + camera_command)
+                                cam_msg = '写真を撮ってラインに送りました！'
+                                os.system(aquest_dir + cam_msg + ' | aplay')
                                 subprocess.Popen(args)
-                                print(device, command)
+                                print(command)
                                 led_blink("green",3)
                           except OSError:
                                 print('command not found.')
@@ -115,3 +125,4 @@ except KeyboardInterrupt:
 p.kill()
 subprocess.call(["kill " + pid], shell=True) # juliusのプロセスを終了
 sock.close()
+                        
